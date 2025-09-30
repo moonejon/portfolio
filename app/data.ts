@@ -32,7 +32,7 @@ export const PROJECTS: Project[] = [
   {
     name: 'Penumbra',
     description: 'my personal book library',
-    link: 'https://penumbra.jonathanmooney.me/',
+    link: 'https://penumbra.jonathanmooney.me/library',
     image: '/app/images/penumbra-demo.png',
     id: 'project1',
   },
