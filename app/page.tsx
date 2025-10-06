@@ -124,6 +124,52 @@ function MagneticSocialLink({
   )
 }
 
+function MagneticDownloadLink({
+  children,
+  label,
+}: {
+  children: React.ReactNode
+  label: string
+}) {
+  const handleClick = async () => {
+    const response = await fetch('/api/file')
+    const blob = await response.blob()
+
+    const url = window.URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = 'jonathan_mooney_resume.pdf'
+    link.click()
+    window.URL.revokeObjectURL(url)
+  }
+
+  return (
+    <Magnetic springOptions={{ bounce: 0 }} intensity={0.3}>
+      <button
+        onClick={handleClick}
+        className="relative m-2 inline-flex shrink-0 items-center gap-[5px] rounded-full bg-zinc-100 px-5 py-1 text-sm text-black transition-colors duration-200 hover:bg-zinc-950 hover:text-zinc-50 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
+      >
+        {children}
+        <svg
+          width="15"
+          height="15"
+          viewBox="0 0 15 15"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-3 w-3"
+        >
+          <path
+            d="M7.5 2C7.77614 2 8 2.22386 8 2.5L8 9.29289L10.1464 7.14645C10.3417 6.95118 10.6583 6.95118 10.8536 7.14645C11.0488 7.34171 11.0488 7.65829 10.8536 7.85355L7.85355 10.8536C7.65829 11.0488 7.34171 11.0488 7.14645 10.8536L4.14645 7.85355C3.95118 7.65829 3.95118 7.34171 4.14645 7.14645C4.34171 6.95118 4.65829 6.95118 4.85355 7.14645L7 9.29289L7 2.5C7 2.22386 7.22386 2 7.5 2ZM3 12C3 11.7239 3.22386 11.5 3.5 11.5L11.5 11.5C11.7761 11.5 12 11.7239 12 12C12 12.2761 11.7761 12.5 11.5 12.5L3.5 12.5C3.22386 12.5 3 12.2761 3 12Z"
+            fill="currentColor"
+            fillRule="evenodd"
+            clipRule="evenodd"
+          />
+        </svg>
+      </button>
+    </Magnetic>
+  )
+}
+
 export default function Personal() {
   return (
     <motion.main
@@ -218,6 +264,9 @@ export default function Personal() {
             </a>
           ))}
         </div>
+        <MagneticDownloadLink label="Download Resume">
+          Resume
+        </MagneticDownloadLink>
       </motion.section>
 
       {/*<motion.section
