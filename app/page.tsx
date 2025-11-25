@@ -1,6 +1,12 @@
 'use client'
 import { motion } from 'motion/react'
-import { XIcon } from 'lucide-react'
+import {
+  XIcon,
+  MailIcon,
+  GithubIcon,
+  InstagramIcon,
+  LinkedinIcon,
+} from 'lucide-react'
 import { Spotlight } from '@/components/ui/spotlight'
 import { Magnetic } from '@/components/ui/magnetic'
 import {
@@ -12,13 +18,7 @@ import {
 } from '@/components/ui/morphing-dialog'
 import Link from 'next/link'
 import { AnimatedBackground } from '@/components/ui/animated-background'
-import {
-  PROJECTS,
-  WORK_EXPERIENCE,
-  BLOG_POSTS,
-  EMAIL,
-  SOCIAL_LINKS,
-} from './data'
+import { PROJECTS, WORK_EXPERIENCE, BLOG_POSTS } from './data'
 import Image from 'next/image'
 
 const VARIANTS_CONTAINER = {
@@ -90,37 +90,50 @@ function ProjectVideo({ src }: ProjectVideoProps) {
   )
 }
 
-function MagneticSocialLink({
+function SocialIconLink({
+  href,
+  label,
+  colorClass,
   children,
-  link,
 }: {
+  href: string
+  label: string
+  colorClass: string
   children: React.ReactNode
-  link: string
 }) {
   return (
-    <Magnetic springOptions={{ bounce: 0 }} intensity={0.3}>
-      <a
-        href={link}
-        className="group relative inline-flex shrink-0 items-center gap-[1px] rounded-full bg-zinc-100 px-2.5 py-1 text-sm text-black transition-colors duration-200 hover:bg-zinc-950 hover:text-zinc-50 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700"
-      >
-        {children}
-        <svg
-          width="15"
-          height="15"
-          viewBox="0 0 15 15"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-3 w-3"
-        >
-          <path
-            d="M3.64645 11.3536C3.45118 11.1583 3.45118 10.8417 3.64645 10.6465L10.2929 4L6 4C5.72386 4 5.5 3.77614 5.5 3.5C5.5 3.22386 5.72386 3 6 3L11.5 3C11.6326 3 11.7598 3.05268 11.8536 3.14645C11.9473 3.24022 12 3.36739 12 3.5L12 9.00001C12 9.27615 11.7761 9.50001 11.5 9.50001C11.2239 9.50001 11 9.27615 11 9.00001V4.70711L4.35355 11.3536C4.15829 11.5488 3.84171 11.5488 3.64645 11.3536Z"
-            fill="currentColor"
-            fillRule="evenodd"
-            clipRule="evenodd"
-          ></path>
-        </svg>
-      </a>
-    </Magnetic>
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={label}
+      className={`transition-all duration-200 ease-out hover:scale-110 active:scale-95 ${colorClass}`}
+    >
+      {children}
+    </a>
+  )
+}
+
+function LetterboxdIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <circle cx="5" cy="12" r="4" fill="#00E054" />
+      <circle cx="12" cy="12" r="4" fill="#40BCF4" />
+      <circle cx="19" cy="12" r="4" fill="#FF8000" />
+    </svg>
+  )
+}
+
+function SpotifyIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z" />
+    </svg>
   )
 }
 
@@ -187,6 +200,50 @@ export default function Personal() {
             Self-taught developer with six years of experience building web
             applications that solve real problems for real people
           </p>
+          <div className="mt-4 flex items-center space-x-4">
+            <SocialIconLink
+              href="mailto:mail@jonathanmooney.me"
+              label="Email"
+              colorClass="text-zinc-500 hover:text-zinc-300"
+            >
+              <MailIcon className="h-5 w-5" />
+            </SocialIconLink>
+            <SocialIconLink
+              href="https://github.com/moonejon"
+              label="GitHub"
+              colorClass="text-zinc-400 hover:text-white"
+            >
+              <GithubIcon className="h-5 w-5" />
+            </SocialIconLink>
+            <SocialIconLink
+              href="https://instagram.com/moonejon"
+              label="Instagram"
+              colorClass="text-pink-400/70 hover:text-pink-400"
+            >
+              <InstagramIcon className="h-5 w-5" />
+            </SocialIconLink>
+            <SocialIconLink
+              href="https://linkedin.com/in/moonejon"
+              label="LinkedIn"
+              colorClass="text-blue-400/70 hover:text-blue-400"
+            >
+              <LinkedinIcon className="h-5 w-5" />
+            </SocialIconLink>
+            <SocialIconLink
+              href="https://letterboxd.com/jonathanmooney"
+              label="Letterboxd"
+              colorClass="opacity-70 hover:opacity-100"
+            >
+              <LetterboxdIcon className="h-5 w-5" />
+            </SocialIconLink>
+            <SocialIconLink
+              href="https://open.spotify.com/user/moonejj"
+              label="Spotify"
+              colorClass="text-green-400/70 hover:text-green-400"
+            >
+              <SpotifyIcon className="h-5 w-5" />
+            </SocialIconLink>
+          </div>
         </div>
       </motion.section>
 
@@ -198,13 +255,13 @@ export default function Personal() {
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
           {PROJECTS.map((project) => (
             <div key={project.name} className="space-y-2">
-              <div className="relative rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
+              <div className="relative w-fit rounded-2xl bg-zinc-50/40 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950/40 dark:ring-zinc-800/50">
                 {project.video && <ProjectVideo src={project.video} />}
                 {project.image && (
                   <Image
                     alt="screenshot of Penumbra library page"
                     src="/penumbra-demo.png"
-                    style={{ objectFit: 'contain' }}
+                    className="rounded-xl"
                     width={300}
                     height={200}
                   />
@@ -305,25 +362,6 @@ export default function Personal() {
         </div>
       </motion.section>*/}
 
-      <motion.section
-        variants={VARIANTS_SECTION}
-        transition={TRANSITION_SECTION}
-      >
-        <h3 className="mb-5 text-lg font-medium">Connect</h3>
-        <p className="mb-5 text-zinc-600 dark:text-zinc-400">
-          Feel free to contact me at{' '}
-          <a className="underline dark:text-zinc-300" href={`mailto:${EMAIL}`}>
-            {EMAIL}
-          </a>
-        </p>
-        <div className="flex items-center justify-start space-x-3">
-          {SOCIAL_LINKS.map((link) => (
-            <MagneticSocialLink key={link.label} link={link.link}>
-              {link.label}
-            </MagneticSocialLink>
-          ))}
-        </div>
-      </motion.section>
     </motion.main>
   )
 }
